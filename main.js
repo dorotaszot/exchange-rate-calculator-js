@@ -12,14 +12,14 @@ function calculate() {
   const currencyTwoValue = currencyElementTwo.value;
   // console.log(currencyOneValue, currencyTwoValue);
 
-  fetch(`https://v6.exchangerate-api.com/v6/cf523fb65e882fcb0dd005a6/latest/${currencyOneValue}`)
+  fetch(`https://api.iban.com/clients/api/currency/rates/?api_key=key&format=xml&currency=${currencyOneValue}`)
     .then(res => res.json())
     .then(data => {
-      // console.log(data);
-      const rate = data.conversion_rates[currencyTwoValue];
-      // console.log(rate);
-      rateElement.innerText = `1 ${currencyOneValue} = ${rate.toFixed(2)} ${currencyTwoValue}`;
-      amountElementTwo.value = (rate * amountElementOne.value).toFixed(2);
+      console.log(data);
+      const rate = data.rates[currencyTwoValue];
+      console.log(rate);
+      // rateElement.innerText = `1 ${currencyOneValue} = ${rate.toFixed(2)} ${currencyTwoValue}`;
+      // amountElementTwo.value = (rate * amountElementOne.value).toFixed(2);
     })
 }
 
@@ -28,7 +28,7 @@ function calculate() {
 // Event listeners
 currencyElementOne.addEventListener('change', calculate);
 currencyElementTwo.addEventListener('change', calculate);
-amountElementOne.addEventListener('input', calculate);
+// amountElementOne.addEventListener('input', calculate);
 amountElementTwo.addEventListener('input', calculate);
 
 // swapButton.addEventListener('click', function () {
